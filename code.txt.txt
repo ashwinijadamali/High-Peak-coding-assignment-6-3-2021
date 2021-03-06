@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void solve(vector<pair<int,string>> &v,int n,int m) {
+    
+    sort(v.begin(),v.end());
+	
+	int answer = INT_MAX,pos = -1;
+	for(int i=0;i<(n-m);i++) {
+	    auto minu = *min_element(v.begin() + i,v.begin() + i + m);
+	    auto maxu = *max_element(v.begin() + i,v.begin() + i + m);
+	    
+	    if(((maxu.first)-(minu.first)) < answer) {
+	        pos = i;
+	        answer = (maxu.first)-(minu.first); 
+	    }
+	}
+
+	cout<<"\n";
+	for(auto i=v.begin() + pos;i<v.begin() + pos + m ;i++) {
+		cout<<(i->first)<<" "<<(i->second)<<endl;
+	}
+	
+	cout<<"Cost: "<<answer<<endl;
+    
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+	string goodies;
+	int n,m,val;
+	cout<<"Enter size of goodies and size of employees: "<<endl;
+	cin>>n>>m;
+	
+	vector<pair<int,string>> v;
+	v.clear();
+	
+	cout<<"Enter goodies and val: "<<endl;
+	
+	for(int i=0;i<n;i++) {
+		cin>>goodies>>val;
+		
+		v.push_back({val,goodies});
+	}
+	
+	solve(v,n,m);
+	return 0;
+}
